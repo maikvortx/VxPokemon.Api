@@ -1,0 +1,31 @@
+name: codacy-coverage-reporter
+
+on:
+  push:
+    branches: [ main, stage, develop, codacy ]
+
+jobs:
+  codacy-coverage-reporter:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Installing dependencies
+        run: npm i --ignore-scripts
+      - name: Running tests
+        run: |
+              npm test
+              npx nyc --reporter=lcov npm test 
+      - name: Run codacy-coverage-reporter
+        uses: codacy/codacy-coverage-reporter-action@master
+        with:
+          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          coverage-reports: coverage/lcov.info

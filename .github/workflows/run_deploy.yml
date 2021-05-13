@@ -1,0 +1,55 @@
+name: deploy-pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - stage
+      
+  pull_request:
+    branches:
+      - main
+      - stage
+
+jobs:
+  deploy-release:
+    if: github.ref == 'refs/heads/stage'
+    name: Deploy - stage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Authentication AWS  
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.CICDFARGATE_DEVELOPER_ACESSKEY}}
+          aws-secret-access-key: ${{secrets.CICDFARGATE_DEVELOPER_SECRETKEY}}
+          aws-region: sa-east-1
+
+      - name: Build && tag Docker image
+        run : docker build -t api-stg -f Dockerfile-stg .
+
+      - name: Deploy
+        run : |
+              
+              
+  deploy-production: #############JOB#############
+    if: github.ref == 'refs/heads/main'
+    name: Deploy - PROD
+    runs-on: ubuntu-latest
+    steps:  
+      - uses: actions/checkout@v2
+
+      - name: Authentication AWS
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{secrets.CICDFARGATE_PRODUCTION_ACESSKEY}}
+          aws-secret-access-key: ${{secrets.CICDFARGATE_PRODUCTION_SECRETKEY}}
+          aws-region: sa-east-1
+  
+      - name: Build && tag Docker image
+        run : docker build . -t api --build-arg START=prod
+
+      - name: Deploy
+        run : |
+             
