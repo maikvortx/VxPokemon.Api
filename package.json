@@ -13,8 +13,8 @@
     "coverage": "nyc --reporter=text mocha --recursive src/**/*.test.js --timeout 10000",
     "lint": "npx eslint src/**/**/*.js",
     "lint-fix": "npx eslint --fix src/**/**/*.js",
-    "dev": "nodemon src/api/server.js",
-    "start": "node src/api/server.js"
+    "dev": "nodemon src/infra/http/server.js",
+    "start": "node src/infra/http/server.js"
   },
   "repository": {
     "type": "git",
@@ -28,11 +28,12 @@
   },
   "homepage": "https://github.com/vortx-dtvm/OneInvestidor.Api#readme",
   "dependencies": {
+    "uuid": "3.3.3",
     "apollo-fetch": "^0.7.0",
     "apollo-server-express": "^2.19.2",
     "aws-sdk": "^2.831.0",
     "axios": "^0.21.1",
-    "buchu": "^1.0.10",
+    "buchu": "1.0.12",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
     "date-fns": "^2.16.1",

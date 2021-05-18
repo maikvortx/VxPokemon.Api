@@ -1,4 +1,4 @@
-const { hashKey } = require("../config/hashKey")
+const hashKey = require("../../config/hashKey")
 const crypto = require('crypto')
 
 class hashValidator {

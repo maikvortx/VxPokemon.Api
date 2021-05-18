@@ -1,7 +1,7 @@
-const Autenticar = require('../../../domain/usecases/Autenticacao/Autenticar')
+const Autenticar = require('../../../core/domain/usecases/Autenticacao/Autenticar')
 
-const extractToken = require('../../../components/tokenExtract')
-const kinesisFirehoseLogger = require('../../../components/loggers/kinesisFirehoseLogger')
+const extractToken = require('../../../core/components/stringFormatter')
+const kinesisFirehoseLogger = require('../../../core/components/loggers/kinesisFirehoseLogger')
 
 async function authRequest({ req, res }) {
   const tokenExtraido = extractToken(req)

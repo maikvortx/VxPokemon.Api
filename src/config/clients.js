@@ -36,5 +36,8 @@ module.exports = {
   },
   lambdaPdfRender: {
     baseURL: process.env.LAMBDA_PDF_RENDER_URL
-  }
+  },
+  vxPermissionamento: {
+    baseURL: process.env.VX_PERMISSIONAMENTO_URL
+  },
 }
