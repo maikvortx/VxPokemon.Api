@@ -1,16 +1,6 @@
 const { Ok, Err } = require("buchu")
 const VxPermissionamento = require("../../infra/repositories/client/vxPermissionamento")
 
-function herbs2allpermissionamento(user) {
-  const { id, token } = user
-
-  const vxPermissionamentoClient = new VxPermissionamento(token)
-  const permissoes = vxPermissionamentoClient.obterPermissoes({ 
-    userId: id 
-  })
-
-  return Ok(permissoes)
-}
 
 function herbs2permissionamento(user, permissao) {
   const { id, token } = user
@@ -31,6 +21,5 @@ function herbs2permissionamento(user, permissao) {
 }
 
 module.exports = {
-  herbs2allpermissionamento,
   herbs2permissionamento
 }
