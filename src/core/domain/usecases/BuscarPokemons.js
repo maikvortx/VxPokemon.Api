@@ -5,17 +5,15 @@ const dependency = {
   PokemonRepository: require("../../../infra/repositories/PokemonRepository")
 }
 
+const permissao = { actionName: 'fogo', resourceName: 'Listar', objectName: 'Johto' }
+
 const BuscarPokemons = (injection) => 
   usecase("Buscar pokemons", {
     request: {},
 
     setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
-    authorize: (user) => herbs2permissionamento(user, {
-      actionName: "listar",
-      resourceName: "RECURSO 1",
-      objectName: "objeto luis teste"
-    }),
+    //authorize: (user) => herbs2permissionamento(user, permissao),
 
     "Retorna pokemons do banco de dados": step(async (ctx) => {
       const { PokemonRepository } = ctx.di

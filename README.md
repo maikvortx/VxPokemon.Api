@@ -1,6 +1,6 @@
-## API Boilerplate 🚀
+## VxPokemon 🚀
 
-<div >Inicie um novo projeto em segundos com um template para serviços escalonáveis com foco nas melhores práticas de desenvolvimento utilizando todo poder do herbsjs como suporte para desenvolvimento.</div>
+<div>Este é um projeto POC para utilização do VxPermissionamento no back-end da aplicação. O sistema compreende várias opções como listagem e exibição de opções como edição e remoção..</div>
 
 </div>
 

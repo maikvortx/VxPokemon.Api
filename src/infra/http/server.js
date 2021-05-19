@@ -8,9 +8,8 @@ const Health = require("./controllers/health")
 const Pokemon = require("./controllers/pokemon")
 
 const kinesisFirehoseLogger = require("../../core/components/loggers/kinesisFirehoseLogger")
-const autenticacao = require("./middleware/auth")
 
-const port = process.env.PORT || 3002
+const port = process.env.PORT || 3008
 const env = process.env.NODE_ENV || 'dev'
 
 const permission = {
@@ -33,20 +32,14 @@ class Server {
     this.app.use(cors())
   }
 
+  morgan() {
+    this.app.use(morgan(env))
+  }
+
   rest() {
     this.app.use((req, res, next) => { req.permission = permission; next() })
     this.app.use(express.json())
     //controllers(this.app)
-  }
-
-  async middlewares(req) {
-    return {
-      ...(await autenticacao(req)),
-    }
-  }
-
-  morgan() {
-    this.app.use(morgan(env))
   }
 
   banner() {

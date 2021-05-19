@@ -1,9 +1,11 @@
 const { Ok, Err, usecase, step } = require("buchu")
-const permissionamentoService = require('../../services/permissionamentoService')
+const { herbs2permissionamento } = require('../../services/permissionamentoService')
 
 const dependency = {
   PokemonRepository: require("../../../infra/repositories/PokemonRepository"),
 }
+
+const permissao = { actionName: 'fogo', resourceName: 'Listar', objectName: 'Johto' }
 
 const AtualizarPokemon = (injection) => usecase("Cadastrar Pokemon", {
   request: {
@@ -14,7 +16,7 @@ const AtualizarPokemon = (injection) => usecase("Cadastrar Pokemon", {
 
   setup: (ctx) => (ctx.di = Object.assign({}, dependency, injection)),
 
-  authorize: (user) => permissionamentoService.herbs2allpermissionamento(user),
+  authorize: (user) => herbs2permissionamento(user, permissao),
 
   "Atualizar pokemon no banco de dados": step(async (ctx) => {
     const { name, type } = ctx.req

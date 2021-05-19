@@ -7,10 +7,10 @@ class PokemonController {
   async buscaPokemons(req, res) {
     const token = req.headers.authorization
     
-    const user = { user: "luis", id: '91ef254e-1c65-4cce-a6eb-b0b0420e1065', isAdmin: true, token }
+    const user = { user: 'Treinador Pokemon 1', id: '91ef254e-1c65-4cce-a6eb-b0b0420e1065', token }
 
     const ucBuscarPokemons = BuscarPokemons()
-    ucBuscarPokemons.authorize(user)
+    //ucBuscarPokemons.authorize(user)
     const caseResponse = await ucBuscarPokemons.run()
 
     if (caseResponse.isErr) {
@@ -40,15 +40,15 @@ class PokemonController {
   async atualizaPokemon(req, res) {
     const token = req.headers.authorization
     const { name, type } = req.body
-    
-    const user = { user: "luis", id: '91ef254e-1c65-4cce-a6eb-b0b0420e1065', isAdmin: true, token }
+
+    const user = { user: "luis", id: req.headers.userid, isAdmin: true, token }
 
     const ucAtualizarPokemon = AtualizarPokemon()
     ucAtualizarPokemon.authorize(user)
     const caseResponse = await ucAtualizarPokemon.run({ name, type })
 
     if (caseResponse.isErr) {
-      return res.status(200).json({ status: 'error', error: caseResponse.err })
+      return res.status(401).json({ status: 'error', error: caseResponse.err })
     }
 
     return res.status(200).json({ status: 'ok' })
